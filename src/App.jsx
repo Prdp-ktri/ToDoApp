@@ -6,6 +6,8 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [todoList, setTodoList] = useState([]);
   const [errorMsg, setErrorMsg] = useState(null);
+  const [todoDetails, setTodoDetails] = useState(null);
+  const [openDialog, setOpenDialog] = useState(false);
 
   async function fetchListOfTodos() {
     try {
@@ -28,6 +30,10 @@ function App() {
     }
   }
 
+  async function fetchDetailsOfCurrentTodo(getCurrentTodoID) {
+    console.log(getCurrentTodoID);
+  }
+
   useEffect(() => {
     fetchListOfTodos();
   }, []);
@@ -35,9 +41,15 @@ function App() {
   return (
     <div className={classes.mainWrapper}>
       <h1 className={classes.headerTitle}>Simple ToDo App Using Material UI</h1>
-      <div>
+      <div className={classes.todoListWrapper}>
         {todoList && todoList.length > 0
-          ? todoList.map((todo) => <TodoItem key={todo.id} />)
+          ? todoList.map((todo) => (
+              <TodoItem
+                fetchDetailsOfCurrentTodo={fetchDetailsOfCurrentTodo}
+                key={todo.id}
+                todo={TodoItem}
+              />
+            ))
           : null}
       </div>
     </div>
