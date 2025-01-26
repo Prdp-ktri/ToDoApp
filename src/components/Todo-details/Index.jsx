@@ -10,7 +10,7 @@ function TodoDetails({
   return (
     <Fragment>
       <Dialog onClose={() => setOpenDialog(false)} open={openDialog}>
-        <DialogTitle>{TodoDetails?.todo}</DialogTitle>
+        <DialogTitle>{todoDetails?.todo}</DialogTitle>
         <DialogActions>
           <Button
             onClick={() => {

@@ -6,8 +6,8 @@ import {
   Typography,
 } from "@mui/material";
 
-function TodoItem({ Todo, fetchDetailsOfCurrentTodo }) {
-  console.log(Todo);
+function TodoItem({ todo, fetchDetailsOfCurrentTodo }) {
+  console.log(todo);
   return (
     <Card
       sx={{
@@ -19,25 +19,25 @@ function TodoItem({ Todo, fetchDetailsOfCurrentTodo }) {
     >
       <CardContent>
         <Typography variant="h5" color={"text.secondary"}>
-          {Todo?.Todo}
+          {todo?.todo}
         </Typography>
       </CardContent>
       <CardActions>
-        <button
+        <Button
           onClick={() => fetchDetailsOfCurrentTodo(todo?.id)}
           sx={{
-            backgroundColor: "black",
-            color: "white",
+            backgroundColor: "#000000",
+            color: "#fff",
             opacity: "0.75",
             "&:hover": {
-              backgroundColor: "black",
-              color: "white",
+              backgroundColor: "#000000",
+              color: "#fff",
               opacity: "1",
             },
           }}
         >
           Details
-        </button>
+        </Button>
       </CardActions>
     </Card>
   );

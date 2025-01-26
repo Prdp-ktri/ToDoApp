@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import classes from "./styles.module.css";
-import TodoItem from "./components/todo-item/Index";
+import TodoItem from "./components/todo-item";
 import TodoDetails from "./components/Todo-details/Index";
 import { Skeleton } from "@mui/material";
-import TodoList from "./components/todo-List/index";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -29,16 +28,16 @@ function App() {
       }
     } catch (e) {
       console.log(e);
-      setErrorMsg("Some error occurred");
+      setErrorMsg("Some error occured");
     }
   }
 
-  async function fetchDetailsOfCurrentTodo(getCurrentTodoID) {
-    console.log(getCurrentTodoID);
+  async function fetchDetailsOfCurrentTodo(getCurrentTodoId) {
+    console.log(getCurrentTodoId);
 
     try {
       const apiResponse = await fetch(
-        `https://dummyjson.com/todos/${getCurrentTodoID}`
+        `https://dummyjson.com/todos/${getCurrentTodoId}`
       );
       const details = await apiResponse.json();
       if (details) {
@@ -60,18 +59,17 @@ function App() {
   }, []);
 
   if (loading)
-    return <Skeleton variant="rectangular" width={650} height={650} />;
+    return <Skeleton variant="rectangulat" width={650} height={650} />;
 
   return (
     <div className={classes.mainWrapper}>
-      <h1 className={classes.headerTitle}>Simple ToDo App Using Material UI</h1>
+      <h1 className={classes.headerTitle}>Simple Todo APP Using Material UI</h1>
       <div className={classes.todoListWrapper}>
-        {TodoList && TodoList.length > 0
-          ? TodoList.map((TodoItem) => (
+        {todoList && todoList.length > 0
+          ? todoList.map((todoItem) => (
               <TodoItem
                 fetchDetailsOfCurrentTodo={fetchDetailsOfCurrentTodo}
-                // key={todo.id}
-                Todo={TodoItem}
+                todo={todoItem}
               />
             ))
           : null}
@@ -79,7 +77,7 @@ function App() {
       <TodoDetails
         setOpenDialog={setOpenDialog}
         openDialog={openDialog}
-        TodoDetails={TodoDetails}
+        todoDetails={todoDetails}
         setTodoDetails={setTodoDetails}
       />
     </div>
