@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import classes from "./styles.module.css";
-import TodoItem from "./components/todo-item";
+import TodoItem from "./components/todo-item/Index";
+import TodoDetails from "./components/Todo-details/Index";
+import { Skeleton } from "@mui/material";
+import TodoList from "./components/todo-List/index";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -14,7 +17,7 @@ function App() {
       setLoading(true);
       const apiResponse = await fetch("https://dummyjson.com/todos");
       const result = await apiResponse.json();
-      console.log(result);
+
       if (result?.todos && result?.todos?.length > 0) {
         setTodoList(result?.todos);
         setLoading(false);
@@ -32,26 +35,53 @@ function App() {
 
   async function fetchDetailsOfCurrentTodo(getCurrentTodoID) {
     console.log(getCurrentTodoID);
+
+    try {
+      const apiResponse = await fetch(
+        `https://dummyjson.com/todos/${getCurrentTodoID}`
+      );
+      const details = await apiResponse.json();
+      if (details) {
+        setTodoDetails(details);
+        setOpenDialog(true);
+      } else {
+        setTodoDetails(null);
+        setOpenDialog(false);
+      }
+
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   useEffect(() => {
     fetchListOfTodos();
   }, []);
 
+  if (loading)
+    return <Skeleton variant="rectangular" width={650} height={650} />;
+
   return (
     <div className={classes.mainWrapper}>
       <h1 className={classes.headerTitle}>Simple ToDo App Using Material UI</h1>
       <div className={classes.todoListWrapper}>
-        {todoList && todoList.length > 0
-          ? todoList.map((todo) => (
+        {TodoList && TodoList.length > 0
+          ? TodoList.map((TodoItem) => (
               <TodoItem
                 fetchDetailsOfCurrentTodo={fetchDetailsOfCurrentTodo}
-                key={todo.id}
-                todo={TodoItem}
+                // key={todo.id}
+                Todo={TodoItem}
               />
             ))
           : null}
       </div>
+      <TodoDetails
+        setOpenDialog={setOpenDialog}
+        openDialog={openDialog}
+        TodoDetails={TodoDetails}
+        setTodoDetails={setTodoDetails}
+      />
     </div>
   );
 }

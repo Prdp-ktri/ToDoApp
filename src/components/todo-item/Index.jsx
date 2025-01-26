@@ -1,7 +1,13 @@
-import { Card, CardActions, CardContent, Typography } from "@mui/material";
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  Typography,
+} from "@mui/material";
 
-function TodoItem({ todo, fetchDetailsOfCurrentTodo }) {
-  console.log(todo);
+function TodoItem({ Todo, fetchDetailsOfCurrentTodo }) {
+  console.log(Todo);
   return (
     <Card
       sx={{
@@ -13,7 +19,7 @@ function TodoItem({ todo, fetchDetailsOfCurrentTodo }) {
     >
       <CardContent>
         <Typography variant="h5" color={"text.secondary"}>
-          {todo?.todo}
+          {Todo?.Todo}
         </Typography>
       </CardContent>
       <CardActions>
